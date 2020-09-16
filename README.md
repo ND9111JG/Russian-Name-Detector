@@ -60,15 +60,15 @@ let data = await nameDetector("илья 123 ильич");
 * name - имя (*string / undefined*)
 * middlename - отчество (*string / undefined*)
 * surname - фамилия (*string / undefined*)
-* sex - пол (*string ["m", "f"] / false*)  
+* sex - пол (*string "m" или "f" / false*)  
 
 Например:
 ```json
 {
-  "name": "Илья", // Имя
-  "middlename": "Ильич", // Отчество
-  "surname": undefined, // Фамилия
-  "sex": "m" // Пол
+  "name": "Илья", 
+  "middlename": "Ильич", 
+  "surname": undefined, 
+  "sex": "m" 
 }
 ```
 
