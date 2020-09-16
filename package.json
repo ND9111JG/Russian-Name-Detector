@@ -1,6 +1,6 @@
 {
   "name": "russian-name-detector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Определение пола человека по русскому имени, фамилии или отчеству.",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "type": "git",
     "url": "https://github.com/ND9111JG/Russian-Name-Detector.git"
   },
-  "author": "ND9111JG & POWERDOT",
+  "author": "ND9111JG <sydzus123456@gmail.com>",
+  "contributors": [
+    "Powerdot <donpsix@gmail.com>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ND9111JG/Russian-Name-Detector/issues"
@@ -23,5 +26,15 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "keywords": [
+    "name",
+    "sex",
+    "gender",
+    "detection",
+    "detector",
+    "russian",
+    "extended",
+    "determination"
+  ]
 }

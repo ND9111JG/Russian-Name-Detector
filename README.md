@@ -1,71 +1,148 @@
-# GenderTask
-Определение пола человека
+[![Russian-Name-Detector Logo](https://storage.yandexcloud.net/actid-storage/russian-name-detector/logo.png?1)](https://github.com/ND9111JG/Russian-Name-Detector/)
 
-## Задача
-Нужно сделать функцию, которой мы даём строчку, и которая возвращает:
-* -1 - Пол не определён
-* 0 - Мужской пол
-* 1 - Женский пол
+Определять имя, фамилию, отчество и пол в строчке стало еще проще!
+Добро пожаловать в ***Russian Name Detector***.
 
-### Например:
-```js
-// Грубо говоря функция, код которой еще нужно будет написать
-function detectGender(str){
-  ...
+Поддержка от NodeJS 8 версии.  
+
+Как говорится: дай мне строчку, я дам объект с тем что мог распарсить.
+
+✓ "иван кузнецов" - мальчик, имя Иван, фамилия Кузнецов!
+✓ "игорь" - мальчик, имя Игорь!
+✓ "василисова женя" - девочка, имя Женя, фамилия Василисова!
+✓ "саша катков" - мальчик, имя Саша, фамилия Катков!
+✓ "alexander kuznetsov" - мальчик, имя Alexander, фамилия Kuznetsov!
+✓ "илья ilyich" - мальчик, имя Илья, отчество Ilyich!
+✓ "наташа" - девочка, имя Наташа!  
+
+
+Поехали!
+
+## Оглавление
+* [Начало работы](#как-с-этим-работать)
+* [Создание экземпляра парсера](#создайте-экзепляр-парсера)
+* [Распознавание](#распознавание)
+* Разработчики: [git@ND9111JG](https://github.com/ND9111JG/) & [git@powerdot](https://github.com/powerdot/)
+
+
+## Как с этим работать
+
+Установите npm-модуль в директории вашего проекта, это очень просто.  
+```bash
+npm i russian-name-detector
+```
+
+## Создайте экзепляр парсера  
+  
+Базовый модуль:
+```javascript
+var nameDetector = require("russian-name-detector")();
+```
+
+Модуль с функцией транскрипции (через Google Translate Api):
+```javascript
+var nameDetector = require("russian-name-detector")({
+  google_api_key: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+});
+```
+Модуль с функцией транскрипции понадобится чтобы корректно обработать имя, написанное на латинице, например, "Sasha Lulakov" в "Саша Лулаков".  
+Для это понадобится API-ключ от Google Переводчика, [посмотри документацию гугла](https://cloud.google.com/translate/docs/setup) как его получить.  
+**Без ключа модуль не сможет определять имена, написаные на латинице.**
+
+## Распознавание 
+
+Модуль асинхронный, поэтому использование **await** и асинхронных функций является обязательным.  
+Всё настолько легко, что
+```javascript
+let data = await nameDetector("илья 123 ильич");
+```
+Нам возвращается объект со следующими ключами:
+* name - имя (*string / undefined*)
+* middlename - отчество (*string / undefined*)
+* surname - фамилия (*string / undefined*)
+* sex - пол (*string ["m", "f"] / false*)  
+
+Например:
+```json
+{
+  "name": "Илья", // Имя
+  "middlename": "Ильич", // Отчество
+  "surname": undefined, // Фамилия
+  "sex": "m" // Пол
 }
-
-// определяем пол:
-detectGender("Илья");                 // 0
-detectGender("Илья Рычагов");         // 0
-detectGender("Илья Ильич Рычагов");   // 0
-detectGender("Саша");                 // -1
-detectGender("Саша Кулаков");         // 0
-detectGender("Саша Владимирович");    // 0
-detectGender("Саша Кузьмина");        // 1
-detectGender("Саша Яценко");          // -1
-detectGender("Яценко Саша Ильинишна");// 1
-detectGender("Кулавидзе Женя");       // -1
-detectGender("Евгения Кулавидзе");    // 1
-detectGender("Федотова Женя");        // 1
-detectGender("Федотов Женя");         // 0
-
-/* Функция должна так же правильно читать строки, которые:
-- пишутся маленькими бувами "илья рычагов"
-- пишутся большими буквами "САША ВЛАДИМИРОВИЧ"
-- понимать где имя, фамилия и отчество (и есть ли вообще): 
-  "илья рычагов" -> имя:илья, фамилия:рычагов, отчество:нет
-- уметь определять пол не только по имени, но ещё и по дополнительным штукам как фамилия или отчество
-- уметь определять с лишними пробелами: "илья ", " саша  куприн  "
-- уметь читать с лишними знаками: "илья. "
-*/
 ```
 
-## В подмогу идут 2 модуля.
-* sexDefiner.js, которая определяет пол по русскому имени (наша собственная разработка)
-* Petrovich.js, которая определяет пол по фамилии (https://github.com/petrovich/petrovich-js)
+### Парсим практически любые строчки!
 
-## На чём тестируем?
-Вот массив, где записаны строки и что должна выдавать функция в будущем:
-```
-let tests = [
-  {str: 'Илья', result:0},
-  {str: 'саша', result:-1},
-  {str: 'саша кулаков', result:0},
-  {str: 'еГОР', result:0},
-  {str: 'лвыпьи кулаков', result:0},
-  {str: 'мвалвл рычагова', result:1},
-  {str: 'кнутов женя', result:0},
-  {str: 'пискунова саша', result:1},
-  {str: 'цеценюк гена', result:0},
-  {str: 'цеценюк вика', result:1},
-  {str: 'саша цеценюк', result:-1},
-  {str: 'гивергидзе женя абрамович', result:0},
-  {str: 'куштапали саша арнольдовна', result:1},
-  {str: 'арнольдовна саша', result:1},
-  {str: 'александра', result:1},
-  {str: 'александр', result:0},
-  {str: ' женя нипкина', result:1},
-  {str: '   нипикитин саша  ', result:0},
-  {str: 'женя . васильев', result:0}
-]
+Проверь:
+
+```javascript
+var nameDetector = require("russian-name-detector")({
+  google_api_key: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+});
+
+(async ()=>{
+  let arr = [];
+  arr.push( await nameDetector("саша куликов") );
+  /*
+  {
+    "name": "Саша",
+    "middlename": undefined,
+    "surname": "Куликов",
+    "sex": "m"
+  }
+  */
+
+  arr.push( await nameDetector("цеценюк курашива альбертовна") );
+  /*
+  {
+    "name": "Курашива",
+    "middlename": "Альбертовна",
+    "surname": "Цеценюк",
+    "sex": "f"
+  }
+  */
+ 
+  arr.push( await nameDetector("yulia_komaROva") );
+  /*
+  {
+    "name": "Yulia",
+    "middlename": undefined,
+    "surname": "Komarova",
+    "sex": "f"
+  }
+  */
+ 
+  arr.push( await nameDetector("ilyich ilya") );
+  /*
+  {
+    "name": "Ilya",
+    "middlename": "Ilyich",
+    "surname": undefined,
+    "sex": "m"
+  }
+  */
+
+  arr.push( await nameDetector("alexander1234442женьков    ") );
+  /*
+  {
+    "name": "Alexander",
+    "middlename": undefined,
+    "surname": "Женьков",
+    "sex": "m"
+  }
+  */
+
+  arr.push( await nameDetector(".павел?//дуров!") );
+  /*
+  {
+    "name": "Павел",
+    "middlename": undefined,
+    "surname": "Дуров",
+    "sex": "m"
+  }
+  */
+
+  console.log(arr);
+})()
 ```
