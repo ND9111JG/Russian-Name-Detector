@@ -63,7 +63,7 @@ let data = await nameDetector("илья 123 ильич");
 * sex - пол (*string "m" или "f" / false*)  
 
 Например:
-```json
+```javascript
 {
   "name": "Илья", 
   "middlename": "Ильич", 
