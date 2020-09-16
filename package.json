@@ -1,23 +1,27 @@
 {
-  "name": "gendertask",
+  "name": "russian-name-detector",
   "version": "1.0.0",
-  "description": "Определение пола человека",
+  "description": "Определение пола человека по русскому имени, фамилии или отчеству.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/powerdot/GenderTask.git"
+    "url": "https://github.com/ND9111JG/Russian-Name-Detector.git"
   },
-  "author": "",
+  "author": "ND9111JG & POWERDOT",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/powerdot/GenderTask/issues"
+    "url": "https://github.com/ND9111JG/Russian-Name-Detector/issues"
   },
-  "homepage": "https://github.com/powerdot/GenderTask#readme",
+  "homepage": "https://github.com/ND9111JG/Russian-Name-Detector/",
   "dependencies": {
     "axios": "^0.20.0",
     "dotenv": "^8.2.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }
