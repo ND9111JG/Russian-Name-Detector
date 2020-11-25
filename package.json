@@ -1,6 +1,6 @@
 {
   "name": "russian-name-detector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Определение пола человека по русскому имени, фамилии или отчеству.",
   "main": "index.js",
   "scripts": {
