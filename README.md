@@ -1,5 +1,6 @@
 [![Russian-Name-Detector Logo](https://storage.yandexcloud.net/actid-storage/russian-name-detector/logo.png?1)](https://github.com/ND9111JG/Russian-Name-Detector/)
 
+[![YouTube IlyaDevman](https://storage.yandexcloud.net/actid-storage/GitHubImages/gt-yt-overview.png)](https://youtu.be/ExqbkytD1Z0)
 
 Быстро определяем фамилию, имя, отчество и пол по строке.  
 🔮  Даже к гадалке ходить не нужно.  
