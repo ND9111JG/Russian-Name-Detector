@@ -15,6 +15,7 @@ async function test(google_api_key){
     let data_mismatch = [];
     let data_undefined = [];
     let data_ok = [];
+    let dataset_counter = 0;
 
     let time_start = (new Date()).getTime();
     for(let test of database_test){
